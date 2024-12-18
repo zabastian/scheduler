@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 
+    // TODO 하나의 쿼리에 댓글 개수와 원하는 스케줄의 정보를 가져오는 방법 JPA query method 만으로는 힘들다.
 
     @Query("SELECT new org.example.scheduler.schedule.model.dto.SchedulePageDto(" +
         "s.scheduleId, s.title, s.contents, u.userName, COUNT(c.commentId)) " +
@@ -16,6 +17,8 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
         "LEFT JOIN s.author u " +
         "LEFT JOIN Comment c ON c.schedule = s " +
         "WHERE u.userId = :userId " +  // 특정 사용자의 스케줄만 조회
-        "GROUP BY s.scheduleId, s.title, s.contents, u.userName")
+        "GROUP BY s.scheduleId, s.title, s.contents, u.userName, s.updatedAt " +
+        "ORDER BY s.updatedAt DESC"
+    )
     Page<SchedulePageDto> findByAndAuthorUserId(long userId,Pageable pageable);
 }
