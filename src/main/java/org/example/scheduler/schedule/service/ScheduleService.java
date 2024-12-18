@@ -6,10 +6,13 @@ import org.example.scheduler.common.entity.Schedule;
 import org.example.scheduler.common.entity.User;
 import org.example.scheduler.common.exception.ValidateException;
 import org.example.scheduler.schedule.model.dto.ScheduleDto;
+import org.example.scheduler.schedule.model.dto.SchedulePageDto;
 import org.example.scheduler.schedule.model.request.CreateScheduleRequest;
 import org.example.scheduler.schedule.model.request.UpdateScheduleRequest;
 import org.example.scheduler.schedule.repository.ScheduleRepository;
 import org.example.scheduler.user.repository.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +26,11 @@ public class ScheduleService {
     public ScheduleDto getSchedule(long scheduleId) {
         Schedule schedule = findScheduleById(scheduleId);
         return convertToDto(schedule);
+    }
+
+    public Page<SchedulePageDto> getScheduleByUserId(long userId, Pageable pageable) {
+        Page<SchedulePageDto> scheduleListPage = scheduleRepository.findByAndAuthorUserId(userId, pageable);
+        return scheduleListPage;
     }
 
     public ScheduleDto createSchedule(CreateScheduleRequest request, long userId) {

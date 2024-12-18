@@ -1,5 +1,6 @@
 package org.example.scheduler.comment.model.request;
 
+
 import jakarta.validation.constraints.NotBlank;
 
 public record UpdateCommentRequest(
