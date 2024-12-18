@@ -26,7 +26,7 @@ public class ScheduleService {
     }
 
     public ScheduleDto createSchedule(CreateScheduleRequest request, long userId) {
-        User author = userRepository.findById(userId).orElseThrow(()-> new ValidateException("존재 하지 않는 게시글 입니다.", HttpStatus.NOT_FOUND));
+        User author = userRepository.findById(userId).orElseThrow(()-> new ValidateException("존재 하지 않는 유저 입니다.", HttpStatus.NOT_FOUND));
         Schedule schedule = Schedule.of(request,author);
         scheduleRepository.save(schedule);
         return convertToDto(schedule);
