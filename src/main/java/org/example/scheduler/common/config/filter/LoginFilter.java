@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import org.example.scheduler.common.exception.LoginException;
 import org.springframework.util.PatternMatchUtils;
 
 
@@ -40,7 +39,7 @@ public class LoginFilter implements Filter {
         return PatternMatchUtils.simpleMatch(WHITE_LIST,requestURI);
     }
 
-    /*
+    /* TODO :: 필터의 순서 고민해보기!
     왜 filter 부분에서 작성한 exception이 global exception에 걸리지 않을까요?
     filter의 순서 다시한번 상기하기
     Filter -> DispatcherServlet -> Controller -> Response

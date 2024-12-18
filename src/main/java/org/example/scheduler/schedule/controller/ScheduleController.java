@@ -15,31 +15,33 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/schedule")
 public class ScheduleController {
 
     private final ScheduleService scheduleService;
 
-    @GetMapping("/schedule/{scheduleId}")
+    @GetMapping("/{scheduleId}")
     public ResponseEntity<ScheduleDto> getSchedule(@PathVariable Long scheduleId) {
         return new ResponseEntity<>(scheduleService.getSchedule(scheduleId), HttpStatus.OK);
     }
 
-    @PostMapping("/schedule")
+    @PostMapping
     public ResponseEntity<ScheduleDto> createSchedule(@Valid @RequestBody CreateScheduleRequest request, HttpSession session) {
         Long userId = (Long) session.getAttribute("userId");
         return new ResponseEntity<>(scheduleService.createSchedule(request,userId),HttpStatus.OK);
     }
 
-    @PutMapping("/schedule/{scheduleId}")
+    @PutMapping("/{scheduleId}")
     public ResponseEntity<ScheduleDto> updateSchedule(@PathVariable Long scheduleId,@Valid @RequestBody UpdateScheduleRequest request) {
         return new ResponseEntity<>(scheduleService.updateSchedule(scheduleId,request),HttpStatus.OK);
     }
 
-    @DeleteMapping("/schedule/{scheduleId}")
+    @DeleteMapping("/{scheduleId}")
     public ResponseEntity<Void> deleteSchedule(@PathVariable Long scheduleId) {
         scheduleService.deleteSchedule(scheduleId);
         return new ResponseEntity<>(HttpStatus.OK);
