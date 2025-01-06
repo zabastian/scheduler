@@ -53,8 +53,8 @@ public class ScheduleService {
 
     private Schedule findScheduleById(long scheduleId) {
         return scheduleRepository.findById(scheduleId)
-            .orElseThrow(()-> new ValidateException("존재 하지 않는 게시글 입니다.", HttpStatus.NOT_FOUND));
-    }
+            .orElseThrow(()-> new ValidateException("요청값의 형식이 맞지 않습니다.", HttpStatus.NOT_FOUND));
+    } // 반환타입이 optional이기 때문에 null이 있을 수 도 없을 수 도 있으니.orElseThrow(() -> new ValidateException("asd",HttpStatus.NOT_FOUND))l를 붙여줌
 
     private ScheduleDto convertToDto(Schedule schedule) {
         return ScheduleDto.convertDto(schedule);

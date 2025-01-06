@@ -44,6 +44,12 @@ public class ScheduleController {
         return new ResponseEntity<>(scheduleService.getScheduleByUserId(userId,pageable), HttpStatus.OK);
     }
 
+    /*@PostMapping
+    public ResponseEntity<ScheduleDto> createSchedule(@Valid @RequestBody CreateScheduleRequest request, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+        return new ResponseEntity<>(scheduleService.createSchedule(request,userId),HttpStatus.OK);
+    }*/
+
     @PostMapping
     public ResponseEntity<ScheduleDto> createSchedule(@Valid @RequestBody CreateScheduleRequest request, HttpSession session) {
         Long userId = (Long) session.getAttribute("userId");

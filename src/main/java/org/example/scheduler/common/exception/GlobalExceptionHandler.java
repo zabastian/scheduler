@@ -16,9 +16,18 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleLoginException(LoginException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.UNAUTHORIZED);
     }
+//    @ExceptionHandler(ValidateException.class)
+//    public ResponseEntity<String> handleLoginException(ValidateException exception) {
+//        return new ResponseEntity<>(exception.getMessage(), exception.getHttpStatus());
+//    }
+
     @ExceptionHandler(ValidateException.class)
-    public ResponseEntity<String> handleLoginException(ValidateException exception) {
-        return new ResponseEntity<>(exception.getMessage(), exception.getHttpStatus());
+    public ResponseEntity<ApiErrorResponse> handleValidateException(ValidateException ex) {
+        ApiErrorResponse errorResponse = new ApiErrorResponse(
+                ex.getErrorCode(),
+                ex.getMessage()
+        );
+        return new ResponseEntity<>(errorResponse,HttpStatus.BAD_REQUEST);
     }
 
     // TODO :: @Valid 어노테이션 붙은 메시지를 커스텀해서 보여주기 위한 exception

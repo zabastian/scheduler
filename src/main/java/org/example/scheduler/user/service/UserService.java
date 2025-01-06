@@ -36,7 +36,7 @@ public class UserService {
             return user.getUserId();
         } else {
             throw new LoginException("비밀번호가 일치하지 않습니다.");
-        }
+        }   
     }
 
 }
